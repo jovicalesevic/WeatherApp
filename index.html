@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp | Jovica Lešević</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="weather-app">
+        <header class="weather-app__header">
+            <a href="../index.html#projekti" class="back-link">← Nazad na portfolio</a>
+            <h1 class="weather-app__title">WeatherApp</h1>
+        </header>
+
+        <main class="weather-app__main">
+            <!-- Search bar -->
+            <div class="search">
+                <input type="text" id="cityInput" class="search__input" placeholder="Unesite ime grada..." autocomplete="off">
+                <button type="button" id="searchBtn" class="search__btn">Pretraži</button>
+            </div>
+
+            <!-- Error message (hidden by default) -->
+            <div id="errorMsg" class="error-msg" aria-live="polite"></div>
+
+            <!-- Loading state -->
+            <div id="loadingState" class="loading-state" aria-hidden="true">
+                <div class="loading-spinner"></div>
+                <p>Učitavanje podataka...</p>
+            </div>
+
+            <!-- Weather card -->
+            <div id="weatherCard" class="weather-card" aria-hidden="true">
+                <div class="weather-card__header">
+                    <h2 id="cityName" class="weather-card__city"></h2>
+                    <img id="weatherIcon" class="weather-card__icon" src="" alt="">
+                </div>
+                <p id="weatherDesc" class="weather-card__desc"></p>
+                <p id="temperature" class="weather-card__temp"></p>
+                <div class="weather-card__details">
+                    <div class="weather-card__detail">
+                        <span class="weather-card__label">Vlažnost</span>
+                        <span id="humidity" class="weather-card__value"></span>
+                    </div>
+                    <div class="weather-card__detail">
+                        <span class="weather-card__label">Brzina vetra</span>
+                        <span id="windSpeed" class="weather-card__value"></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

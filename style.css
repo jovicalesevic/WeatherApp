@@ -1,0 +1,271 @@
+/* ===== WeatherApp - Vizuelni identitet portfolija ===== */
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #1a1a1a;
+    --accent: #00d4ff;
+    --accent-hover: #00b8e6;
+    --accent-glow: rgba(0, 212, 255, 0.25);
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border: rgba(255, 255, 255, 0.08);
+    --font-main: 'Inter', -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ===== Layout ===== */
+.weather-app {
+    min-height: 100vh;
+    padding: 2rem 1.5rem 3rem;
+}
+
+.weather-app__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.back-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+.weather-app__title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ===== Main content - centered ===== */
+.weather-app__main {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* ===== Search bar ===== */
+.search {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search__input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+}
+
+.search__input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search__input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search__btn {
+    padding: 0.9rem 1.5rem;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--bg-primary);
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search__btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.search__btn:active {
+    transform: translateY(0);
+}
+
+/* ===== Error message ===== */
+.error-msg {
+    display: none;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.15);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 10px;
+}
+
+.error-msg.visible {
+    display: block;
+}
+
+/* ===== Loading state ===== */
+.loading-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+.loading-state.visible {
+    display: flex;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Weather card - Glassmorphism ===== */
+.weather-card {
+    display: none;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.35s ease;
+}
+
+.weather-card.visible {
+    display: block;
+}
+
+.weather-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 212, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 40px var(--accent-glow);
+}
+
+.weather-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.weather-card__city {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.weather-card__icon {
+    width: 64px;
+    height: 64px;
+}
+
+.weather-card__desc {
+    font-size: 1rem;
+    color: var(--accent);
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+}
+
+.weather-card__temp {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.weather-card__temp::after {
+    content: " °C";
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.weather-card__details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.weather-card__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.weather-card__label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.weather-card__value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    .weather-app {
+        padding: 1.5rem 1rem 2rem;
+    }
+
+    .search {
+        flex-direction: column;
+    }
+
+    .search__btn {
+        width: 100%;
+    }
+
+    .weather-card {
+        padding: 1.5rem;
+    }
+
+    .weather-card__temp {
+        font-size: 2.5rem;
+    }
+
+    .weather-card__details {
+        grid-template-columns: 1fr;
+    }
+}
