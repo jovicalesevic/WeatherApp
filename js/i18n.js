@@ -1,5 +1,7 @@
 const translations = {
     sr: {
+        pageTitle: 'WeatherApp | Jovica Lešević',
+        languageSwitcherAria: 'Izbor jezika',
         inputPlaceholder: 'Unesite ime grada...',
         search: 'Pretraži',
         myLocation: 'Moja lokacija',
@@ -26,6 +28,8 @@ const translations = {
         errGeoFetch: 'Ne mogu da učitam vreme za trenutnu lokaciju.'
     },
     en: {
+        pageTitle: 'WeatherApp | Jovica Lesevic',
+        languageSwitcherAria: 'Language selection',
         inputPlaceholder: 'Enter city name...',
         search: 'Search',
         myLocation: 'My location',

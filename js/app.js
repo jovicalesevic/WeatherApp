@@ -32,6 +32,7 @@ const pressureEl = document.getElementById('pressure');
 const lastUpdatedEl = document.getElementById('lastUpdated');
 const analyticsSearchCountEl = document.getElementById('analyticsSearchCount');
 const analyticsAverageTempEl = document.getElementById('analyticsAverageTemp');
+const langSwitchEl = document.getElementById('langSwitch');
 const languageButtons = document.querySelectorAll('.lang-switch__btn');
 const i18nNodes = document.querySelectorAll('[data-i18n]');
 
@@ -119,6 +120,8 @@ function renderRecentSearches() {
 
 function applyTranslations() {
     document.documentElement.lang = language;
+    document.title = t(language, 'pageTitle');
+    langSwitchEl.setAttribute('aria-label', t(language, 'languageSwitcherAria'));
     cityInput.placeholder = t(language, 'inputPlaceholder');
     searchBtn.textContent = t(language, 'search');
     geoBtn.textContent = t(language, 'myLocation');
