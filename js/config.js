@@ -1,5 +1,4 @@
-export const API_KEY = '79780fde196ffc4ae9ff14c72a1e8e84';
-export const API_BASE = 'https://api.openweathermap.org/data/2.5/weather';
+export const API_BASE = window.WEATHER_API_BASE_URL || 'http://localhost:8000/api/weather';
 
 export const STORAGE_KEYS = {
     recentSearches: 'weather_recent_searches',

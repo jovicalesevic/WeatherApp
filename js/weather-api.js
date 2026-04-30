@@ -1,12 +1,12 @@
-import { API_BASE, API_KEY } from './config.js';
+import { API_BASE } from './config.js';
 
 export async function fetchWeatherByCity(city, language) {
-    const url = `${API_BASE}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric&lang=${language}`;
+    const url = `${API_BASE}?city=${encodeURIComponent(city)}&lang=${language}`;
     return fetchJson(url);
 }
 
 export async function fetchWeatherByCoords(lat, lon, language) {
-    const url = `${API_BASE}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=${language}`;
+    const url = `${API_BASE}?lat=${lat}&lon=${lon}&lang=${language}`;
     return fetchJson(url);
 }
 
