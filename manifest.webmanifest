@@ -1,0 +1,18 @@
+{
+  "name": "WeatherApp",
+  "short_name": "Weather",
+  "description": "Weather dashboard with geolocation and offline fallback.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

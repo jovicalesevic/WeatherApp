@@ -14,6 +14,8 @@ A lightweight, client-side weather dashboard that fetches **current conditions**
 - **UX polish** — Loading spinner, clear error messages (e.g. city not found, network issues), and `aria-live` feedback for assistive technologies.
 - **Geolocation + persistence** — One-click "My location", recent city chips, and last city auto-load with `localStorage`.
 - **Language toggle** — Instant switch between Serbian and English labels/messages.
+- **Mini analytics** — Tracks number of weather lookups and average temperature over the last 7 days.
+- **PWA-ready** — Install prompt support, web app manifest, and service worker app-shell caching.
 - **Dark-themed UI** — Single cohesive dark palette (CSS custom properties), typography via Google Fonts (**Inter**), and a layout that works on mobile and desktop.
 
 ---
@@ -25,6 +27,7 @@ A lightweight, client-side weather dashboard that fetches **current conditions**
 | Markup | HTML5             |
 | Styles | CSS3 (variables, grid/flexbox) |
 | Logic  | Vanilla JavaScript (ES modules) |
+| Offline/Install | Web App Manifest + Service Worker |
 
 ---
 

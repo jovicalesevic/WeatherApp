@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherApp | Jovica Lešević</title>
+    <meta name="theme-color" content="#121212">
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +22,11 @@
         </header>
 
         <main class="weather-app__main">
+            <div id="installPrompt" class="install-prompt" hidden>
+                <p class="install-prompt__text" data-i18n="installText">Instaliraj aplikaciju za brži pristup.</p>
+                <button type="button" id="installBtn" class="search__btn search__btn--secondary" data-i18n="installAction">Instaliraj</button>
+            </div>
+
             <!-- Search bar -->
             <div class="search">
                 <input type="text" id="cityInput" class="search__input" placeholder="Unesite ime grada..." autocomplete="off">
@@ -36,7 +43,7 @@
             <!-- Loading state -->
             <div id="loadingState" class="loading-state" aria-hidden="true">
                 <div class="loading-spinner"></div>
-                <p>Učitavanje podataka...</p>
+                <p data-i18n="loading">Učitavanje podataka...</p>
             </div>
 
             <!-- Weather card -->
@@ -67,6 +74,20 @@
                 </div>
                 <p id="lastUpdated" class="weather-card__meta"></p>
             </div>
+
+            <section id="analyticsCard" class="analytics-card" aria-live="polite">
+                <h3 class="analytics-card__title" data-i18n="analyticsTitle">Mini analytics</h3>
+                <div class="analytics-card__grid">
+                    <div>
+                        <p class="analytics-card__label" data-i18n="analyticsSearches">Pretraga (7 dana)</p>
+                        <p id="analyticsSearchCount" class="analytics-card__value">0</p>
+                    </div>
+                    <div>
+                        <p class="analytics-card__label" data-i18n="analyticsAverageTemp">Prosečna temp.</p>
+                        <p id="analyticsAverageTemp" class="analytics-card__value">-</p>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 

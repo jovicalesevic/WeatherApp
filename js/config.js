@@ -4,7 +4,9 @@ export const API_BASE = 'https://api.openweathermap.org/data/2.5/weather';
 export const STORAGE_KEYS = {
     recentSearches: 'weather_recent_searches',
     lastCity: 'weather_last_city',
-    language: 'weather_language'
+    language: 'weather_language',
+    history: 'weather_history',
+    lastWeatherSnapshot: 'weather_last_snapshot'
 };
 
 export const MAX_RECENT_SEARCHES = 5;

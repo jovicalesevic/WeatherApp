@@ -42,3 +42,35 @@ export function pushRecentSearch(city) {
     saveRecentSearches(nextSearches);
     saveLastCity(normalizedCity);
 }
+
+export function loadHistory() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEYS.history) || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+export function pushHistoryEntry(entry) {
+    const history = loadHistory();
+    const now = Date.now();
+    const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+    const nextHistory = [{ ...entry, at: now }, ...history]
+        .filter((item) => now - item.at <= sevenDaysMs)
+        .slice(0, 50);
+    localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(nextHistory));
+}
+
+export function saveLastSnapshot(snapshot) {
+    localStorage.setItem(STORAGE_KEYS.lastWeatherSnapshot, JSON.stringify(snapshot));
+}
+
+export function loadLastSnapshot() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEYS.lastWeatherSnapshot) || 'null');
+        return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch {
+        return null;
+    }
+}

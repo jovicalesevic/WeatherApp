@@ -1,11 +1,23 @@
 import { t } from './i18n.js';
-import { getLanguage, getLastCity, loadRecentSearches, pushRecentSearch, saveLanguage } from './storage.js';
+import {
+    getLanguage,
+    getLastCity,
+    loadHistory,
+    loadLastSnapshot,
+    loadRecentSearches,
+    pushHistoryEntry,
+    pushRecentSearch,
+    saveLanguage,
+    saveLastSnapshot
+} from './storage.js';
 import { fetchWeatherByCity, fetchWeatherByCoords } from './weather-api.js';
 
 const cityInput = document.getElementById('cityInput');
 const searchBtn = document.getElementById('searchBtn');
 const geoBtn = document.getElementById('geoBtn');
 const recentSearchesEl = document.getElementById('recentSearches');
+const installPromptEl = document.getElementById('installPrompt');
+const installBtn = document.getElementById('installBtn');
 const errorMsg = document.getElementById('errorMsg');
 const loadingState = document.getElementById('loadingState');
 const weatherCard = document.getElementById('weatherCard');
@@ -18,10 +30,13 @@ const windSpeedEl = document.getElementById('windSpeed');
 const feelsLikeEl = document.getElementById('feelsLike');
 const pressureEl = document.getElementById('pressure');
 const lastUpdatedEl = document.getElementById('lastUpdated');
+const analyticsSearchCountEl = document.getElementById('analyticsSearchCount');
+const analyticsAverageTempEl = document.getElementById('analyticsAverageTemp');
 const languageButtons = document.querySelectorAll('.lang-switch__btn');
 const i18nNodes = document.querySelectorAll('[data-i18n]');
 
 let language = getLanguage();
+let deferredInstallPrompt = null;
 
 function showError(message) {
     errorMsg.textContent = message;
@@ -78,6 +93,17 @@ function displayWeather(data) {
     weatherCard.setAttribute('aria-hidden', 'false');
 }
 
+function renderAnalytics() {
+    const history = loadHistory();
+    const count = history.length;
+    const averageTemp = count
+        ? Math.round(history.reduce((sum, item) => sum + Number(item.temp || 0), 0) / count)
+        : null;
+
+    analyticsSearchCountEl.textContent = String(count);
+    analyticsAverageTempEl.textContent = averageTemp === null ? '-' : `${averageTemp} °C`;
+}
+
 function renderRecentSearches() {
     const recentSearches = loadRecentSearches();
     if (!recentSearches.length) {
@@ -92,6 +118,7 @@ function renderRecentSearches() {
 }
 
 function applyTranslations() {
+    document.documentElement.lang = language;
     cityInput.placeholder = t(language, 'inputPlaceholder');
     searchBtn.textContent = t(language, 'search');
     geoBtn.textContent = t(language, 'myLocation');
@@ -105,6 +132,7 @@ function applyTranslations() {
     });
 
     renderRecentSearches();
+    renderAnalytics();
 }
 
 function resolveApiError(result) {
@@ -139,7 +167,10 @@ async function searchWeather() {
 
     displayWeather(result.data);
     pushRecentSearch(result.data.name);
+    pushHistoryEntry({ temp: result.data.main.temp, city: result.data.name });
+    saveLastSnapshot(result.data);
     renderRecentSearches();
+    renderAnalytics();
 }
 
 function requestCurrentPosition() {
@@ -173,7 +204,10 @@ async function searchWeatherByLocation() {
 
         displayWeather(result.data);
         pushRecentSearch(result.data.name);
+        pushHistoryEntry({ temp: result.data.main.temp, city: result.data.name });
+        saveLastSnapshot(result.data);
         renderRecentSearches();
+        renderAnalytics();
     } catch (err) {
         hideLoading();
 
@@ -199,6 +233,51 @@ function hydrateLastCity() {
 
     cityInput.value = lastCity;
     searchWeather();
+}
+
+function showOfflineSnapshot() {
+    const snapshot = loadLastSnapshot();
+    if (!snapshot) {
+        return false;
+    }
+
+    displayWeather(snapshot);
+    showError(t(language, 'offlineSnapshot'));
+    return true;
+}
+
+function setupInstallPrompt() {
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        installPromptEl.hidden = false;
+    });
+
+    window.addEventListener('appinstalled', () => {
+        installPromptEl.hidden = true;
+        deferredInstallPrompt = null;
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) {
+            return;
+        }
+
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        installPromptEl.hidden = true;
+    });
+}
+
+function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) {
+        return;
+    }
+
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+    });
 }
 
 searchBtn.addEventListener('click', searchWeather);
@@ -230,3 +309,9 @@ languageButtons.forEach((button) => {
 
 applyTranslations();
 hydrateLastCity();
+setupInstallPrompt();
+registerServiceWorker();
+
+if (!navigator.onLine) {
+    showOfflineSnapshot();
+}
