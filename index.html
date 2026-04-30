@@ -13,6 +13,10 @@
     <div class="weather-app">
         <header class="weather-app__header">
             <h1 class="weather-app__title">WeatherApp</h1>
+            <div class="lang-switch" role="group" aria-label="Izbor jezika">
+                <button type="button" class="lang-switch__btn active" data-lang="sr">SR</button>
+                <button type="button" class="lang-switch__btn" data-lang="en">EN</button>
+            </div>
         </header>
 
         <main class="weather-app__main">
@@ -45,19 +49,19 @@
                 <p id="temperature" class="weather-card__temp"></p>
                 <div class="weather-card__details">
                     <div class="weather-card__detail">
-                        <span class="weather-card__label">Vlažnost</span>
+                        <span class="weather-card__label" data-i18n="labelHumidity">Vlažnost</span>
                         <span id="humidity" class="weather-card__value"></span>
                     </div>
                     <div class="weather-card__detail">
-                        <span class="weather-card__label">Brzina vetra</span>
+                        <span class="weather-card__label" data-i18n="labelWind">Brzina vetra</span>
                         <span id="windSpeed" class="weather-card__value"></span>
                     </div>
                     <div class="weather-card__detail">
-                        <span class="weather-card__label">Osećaj</span>
+                        <span class="weather-card__label" data-i18n="labelFeelsLike">Osećaj</span>
                         <span id="feelsLike" class="weather-card__value"></span>
                     </div>
                     <div class="weather-card__detail">
-                        <span class="weather-card__label">Pritisak</span>
+                        <span class="weather-card__label" data-i18n="labelPressure">Pritisak</span>
                         <span id="pressure" class="weather-card__value"></span>
                     </div>
                 </div>
@@ -66,6 +70,6 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

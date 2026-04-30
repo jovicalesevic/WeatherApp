@@ -9,9 +9,11 @@ A lightweight, client-side weather dashboard that fetches **current conditions**
 ## Features
 
 - **City search** — Enter a city name and press **Search** or **Enter** to load weather data.
-- **OpenWeather API integration** — Real-time data via `api.openweathermap.org` (metric units, Serbian `lang` parameter for descriptions where supported by the API).
-- **Rich current snapshot** — Temperature, condition text, humidity, wind speed, and official OpenWeather condition icons.
+- **OpenWeather API integration** — Real-time data via `api.openweathermap.org` (metric units, SR/EN descriptions).
+- **Rich current snapshot** — Temperature, condition text, humidity, wind speed, feels-like, pressure, and official OpenWeather condition icons.
 - **UX polish** — Loading spinner, clear error messages (e.g. city not found, network issues), and `aria-live` feedback for assistive technologies.
+- **Geolocation + persistence** — One-click "My location", recent city chips, and last city auto-load with `localStorage`.
+- **Language toggle** — Instant switch between Serbian and English labels/messages.
 - **Dark-themed UI** — Single cohesive dark palette (CSS custom properties), typography via Google Fonts (**Inter**), and a layout that works on mobile and desktop.
 
 ---
@@ -21,8 +23,8 @@ A lightweight, client-side weather dashboard that fetches **current conditions**
 | Layer   | Technology        |
 |--------|-------------------|
 | Markup | HTML5             |
-| Styles | CSS3 (variables, flexbox) |
-| Logic  | Vanilla JavaScript (ES modules not required — single `script.js`) |
+| Styles | CSS3 (variables, grid/flexbox) |
+| Logic  | Vanilla JavaScript (ES modules) |
 
 ---
 
@@ -31,7 +33,7 @@ A lightweight, client-side weather dashboard that fetches **current conditions**
 This project uses the **OpenWeather** [Current Weather Data](https://openweathermap.org/current) endpoint. You need a free API key from [OpenWeather](https://openweathermap.org/api):
 
 1. Create an account and open **API keys** in the dashboard.
-2. In `script.js`, set your key on the `API_KEY` constant (see the comment block at the top of the file).
+2. In `js/config.js`, set your key on the `API_KEY` constant.
 
 Weather icons are loaded from OpenWeather’s CDN (`openweathermap.org/img/wn/…`). Usage of OpenWeather data and branding is subject to [OpenWeather’s terms](https://openweathermap.org/terms).
 
@@ -48,7 +50,7 @@ No build step or package manager is required.
    ```
 2. **Open** `index.html` in your browser (double-click or use “Open with Live Server” / your editor’s static preview).
 
-For full API functionality, ensure `script.js` contains a valid OpenWeather API key and that your environment allows `fetch` requests to the OpenWeather API.
+For full API functionality, ensure `js/config.js` contains a valid OpenWeather API key and that your environment allows `fetch` requests to the OpenWeather API.
 
 ---
 
