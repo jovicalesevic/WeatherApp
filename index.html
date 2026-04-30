@@ -19,8 +19,12 @@
             <!-- Search bar -->
             <div class="search">
                 <input type="text" id="cityInput" class="search__input" placeholder="Unesite ime grada..." autocomplete="off">
-                <button type="button" id="searchBtn" class="search__btn">Pretraži</button>
+                <div class="search__actions">
+                    <button type="button" id="searchBtn" class="search__btn">Pretraži</button>
+                    <button type="button" id="geoBtn" class="search__btn search__btn--secondary">Moja lokacija</button>
+                </div>
             </div>
+            <div id="recentSearches" class="recent-searches" aria-live="polite"></div>
 
             <!-- Error message (hidden by default) -->
             <div id="errorMsg" class="error-msg" aria-live="polite"></div>
@@ -48,7 +52,16 @@
                         <span class="weather-card__label">Brzina vetra</span>
                         <span id="windSpeed" class="weather-card__value"></span>
                     </div>
+                    <div class="weather-card__detail">
+                        <span class="weather-card__label">Osećaj</span>
+                        <span id="feelsLike" class="weather-card__value"></span>
+                    </div>
+                    <div class="weather-card__detail">
+                        <span class="weather-card__label">Pritisak</span>
+                        <span id="pressure" class="weather-card__value"></span>
+                    </div>
                 </div>
+                <p id="lastUpdated" class="weather-card__meta"></p>
             </div>
         </main>
     </div>
